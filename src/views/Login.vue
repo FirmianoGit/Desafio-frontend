@@ -13,7 +13,7 @@
             </div>
 
             <div class='label-float'>
-                <input v-model="form.password"type="password" paceholder='' required>
+                <input v-model="form.password" type="password" paceholder='' required>
                 <label id='senhaLabel' for='senha'>Senha</label>
                 <i class="bi bi-eye-slash" aria-hidden="true"></i>
             </div>
