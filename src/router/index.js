@@ -4,20 +4,24 @@ import Home from '../views/Home.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: Home
   },
   {
-    path: '/signup',
-    name: 'Signup',
-    component: () => import('../views/SignUp.vue')
+    path: '/signin',
+    name: 'SignIn',
+    component: () => import('../views/SignIn.vue')
 
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
-
+  },
+  {
+    path: '/account',
+    name: 'UserAccount',
+    component: () => import('../views/UserAccount.vue')
   }
 ]
 

@@ -1,20 +1,8 @@
 <template>
-  <div>
 <router-view ></router-view>
-  </div>
 </template>
 
-<script>
-/* import SingUp from './views/SignUp.vue'
-import Login from './views/Login.vue' */
 
-export default {
-  components:{
-  /*   SingUp,
-    Login */
-  }
-}
-</script>
 
 <style lang="scss">
 #app {
