@@ -27,7 +27,13 @@ const routes = [
     beforeEnter: (to, from, next) => {
       store.state.user.isLoggedIn ? next() : next("/");
     },
-  }
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    beforeEnter: (to, from, next) => {
+      next("/");
+    },
+  },
 ]
 
 const router = createRouter({
