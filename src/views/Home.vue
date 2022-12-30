@@ -1,14 +1,19 @@
 <template>
-  <div >
-    <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link>
-    <router-link to="/signup">SingUp</router-link>
+  <div>
+    <ul>
+      <li>
+        <router-link to="/account">Your Account</router-link>
+      </li>
+      <li>
+        <router-link to="/signin">Sign In</router-link>
+      </li>
+    </ul>
 
   </div>
 </template>
 
 <script>
 export default {
-  name:'Home',
+  name: 'Home',
 }
 </script>
