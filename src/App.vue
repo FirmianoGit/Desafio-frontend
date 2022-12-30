@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import SingUp from './components/SignUp.vue'
+import SingUp from './views/SignUp.vue'
 export default {
   components:{
     SingUp
