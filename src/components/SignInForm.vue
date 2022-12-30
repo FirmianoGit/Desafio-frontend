@@ -16,8 +16,7 @@
             <i class="bi bi-eye-slash" aria-hidden="true"></i>
           </div>
           <p v-if="error" class="mt-6">Please fill all fields</p>
-    <p v-if="errorSignIn && !error" class="mt-6">{{ errorSignIn }}</p>
-
+          <p v-if="errorSignUp && !error" class="mt-6">{{ errorSignUp }}</p>
           <div class='justify-center'>
             <button type="submit">Entrar</button>
           </div>
