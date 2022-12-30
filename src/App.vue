@@ -5,15 +5,18 @@
 
 <script>
 import Header from "@/components/TheHeader.vue";
-import store from "@/store";
+
+import { useStore } from "vuex";
 import { onMounted } from "vue";
 
 export default {
   components: { Header },
   setup() {
+    const store = useStore();
     onMounted(() => store.dispatch("user/checkSession"));
   },
 };
+</script>
 
 
 
