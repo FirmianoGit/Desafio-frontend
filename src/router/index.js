@@ -9,10 +9,21 @@ const routes = [
     name: 'Home',
     component: Home
   },
+
   {
     path: '/signin',
     name: 'SignIn',
     component: () => import('../views/SignIn.vue'),
+    beforeEnter: (to, from, next) => {
+      store.state.user.isLoggedIn ? next({ name: "UserAccount" }) : next();
+    },
+
+  },
+
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: () => import('../views/SignUp.vue'),
     beforeEnter: (to, from, next) => {
       store.state.user.isLoggedIn ? next({ name: "UserAccount" }) : next();
     },
@@ -23,6 +34,7 @@ const routes = [
     name: 'Login',
     component: () => import('../views/Login.vue')
   },
+
   {
     path: '/account',
     name: 'UserAccount',
@@ -31,6 +43,7 @@ const routes = [
       store.state.user.isLoggedIn ? next() : next({name:'Home'});
     },
   },
+
   {
     path: "/:pathMatch(.*)*",
     beforeEnter: (to, from, next) => {
