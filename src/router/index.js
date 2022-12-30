@@ -12,7 +12,10 @@ const routes = [
   {
     path: '/signin',
     name: 'SignIn',
-    component: () => import('../views/SignIn.vue')
+    component: () => import('../views/SignIn.vue'),
+    beforeEnter: (to, from, next) => {
+      store.state.user.isLoggedIn ? next({ name: "UserAccount" }) : next();
+    },
 
   },
   {
