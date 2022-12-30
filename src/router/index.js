@@ -25,7 +25,7 @@ const routes = [
     name: 'UserAccount',
     component: () => import('../views/UserAccount.vue'),
     beforeEnter: (to, from, next) => {
-      store.state.user.isLoggedIn ? next() : next("/");
+      store.state.user.isLoggedIn ? next() : next({name:'Home'});
     },
   },
   {
