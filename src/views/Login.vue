@@ -1,5 +1,6 @@
 <template>
   <div>
+    <form @submit.prevent="onSubmit">
     <div class='container'>
         <div class='card'>
             <h1> Entrar </h1>
@@ -7,18 +8,18 @@
             <div id='msgError'></div>
 
             <div class='label-float'>
-                <input type='text' id='usuario' paceholder='' required>
+                <input  v-model="form.username" type="text" paceholder='' required>
                 <label id='userLabel' for='usuario'>Usuario</label>
             </div>
 
             <div class='label-float'>
-                <input type='password' id='senha' paceholder='' required>
+                <input v-model="form.password"type="password" paceholder='' required>
                 <label id='senhaLabel' for='senha'>Senha</label>
                 <i class="bi bi-eye-slash" aria-hidden="true"></i>
             </div>
 
             <div class='justify-center'>
-                <button id="entrar" disabled="disabled">Entrar</button>
+                <button type="submit">Entrar</button>
             </div>
 
             <div class='justify-center'>
@@ -31,12 +32,32 @@
 
         </div>
     </div>
+  </form>
   </div>
 </template>
 
 <script>
 export default {
-  name:'Login'
+  name:'Login',
+  setup () {
+    const form = reactive({
+      username: '',
+      password: ''
+    })
+    const router = useRouter()
+    const onSubmit = async () => {
+      const response = await userStore.login(form.username, form.password)
+      console.log(response)
+      if (response) {
+        router.push({ name: 'Home' })
+      }
+    }
+    const goToSignUp = async () => {
+      router.push({ name: 'Signup' })
+    }
+
+    return { form, userStore, onSubmit, goToHome, goToSignUp }
+  }
 }
 </script>
 

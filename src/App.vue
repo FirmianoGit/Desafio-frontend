@@ -1,16 +1,17 @@
 <template>
   <div>
-<Home />
-    <SingUp/>
+<router-view ></router-view>
   </div>
-  <router-view/>
 </template>
 
 <script>
-import SingUp from './views/SignUp.vue'
+/* import SingUp from './views/SignUp.vue'
+import Login from './views/Login.vue' */
+
 export default {
   components:{
-    SingUp
+  /*   SingUp,
+    Login */
   }
 }
 </script>

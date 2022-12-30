@@ -1,39 +1,66 @@
 <template>
   <div>
+		<form @submit.prevent="onSubmit">
     <div class="container">
       <div class="card castrar">
         <h1>Cadastrar</h1>
         <div id="msgError"></div>
         <div id="msgSuccess"></div>
         <div class="label-float">
-          <input type="text" id="nome" placeholder="" required>
-          <label id="labelNome" for="nome">Nome</label>
+          <input  v-model="form.name" type="text" placeholder="" required>
+          <label>Nome</label>
         </div>
         <div class="label-float">
-          <input type="text" id="usuario" placeholder="" required>
+          <input  v-model="form.username" type="text" placeholder="" required>
           <label id="labelUsuario" for="usuario">Usuário</label>
         </div>
         <div class="label-float">
-          <input type="password" id="senha" placeholder="" required>
+          <input  v-model="form.password" type="password" placeholder="" required>
           <label id="labelSenha" for="senha">Senha</label>
           <i id="verSenha"   class="bi bi-eye-slash"></i>
         </div>
-        <div class="label-float">
+        <!-- <div class="label-float">
           <input type="password" id="confirmSenha" placeholder="" required>
           <label id="labelConfirmSenha" for="confirmSenha">Confirmar senha</label>
           <i class="bi bi-eye-slash" id="verConfirmSenha"></i>
-        </div>
+        </div> -->
         <div class="justify-center">
-          <button id="cadastrar">cadastrar</button>
+          <button type="submit">cadastrar</button>
         </div>
       </div>
     </div>
+	</form>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SignUp'
+  name: 'SignUp',
+  setup () {
+    const form = reactive({
+      name: '',
+      username: '',
+      password: ''
+    })
+    const router = useRouter()
+    const onSubmit = async () => {
+      const response = await userStore.register(form.name, form.username, form.password)
+      console.log(response)
+      if (response) {
+        router.push({ name: 'Login' })
+      }
+    }
+
+    const goToHome = async () => {
+      router.push({ name: 'LandingPage' })
+    }
+
+    const goToLogin = async () => {
+      router.push({ name: 'Login' })
+    }
+
+    return { form, userStore, onSubmit, goToHome, goToLogin }
+  }
 }
 </script>
 
