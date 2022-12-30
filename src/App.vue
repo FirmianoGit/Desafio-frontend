@@ -1,10 +1,19 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <div>
+<Home />
+    <SingUp/>
+  </div>
   <router-view/>
 </template>
+
+<script>
+import SingUp from './components/SignUp.vue'
+export default {
+  components:{
+    SingUp
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
