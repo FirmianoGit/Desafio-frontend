@@ -1,7 +1,10 @@
 <template>
   <div>
-<button @click="logout()"> Logout</button>
-   <h1> Olá, {{ name }}</h1>
+    <button @click="logout()"> Logout</button>
+    <button>
+      <router-link to="Home">Voltar</router-link>
+    </button>
+    <h1> Olá, {{ name }}</h1>
   </div>
 </template>
 

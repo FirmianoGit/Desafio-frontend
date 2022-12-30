@@ -6,8 +6,8 @@
           <h1> Entrar </h1>
           <p v-if="error">Please fill all field</p>
           <div class='label-float'>
-            <input type='text' v-model="username" paceholder='' required>
-            <label id='userLabel' for='username'>Usuário</label>
+            <input type='text' name="email" v-model="email" paceholder='' required>
+            <label id='userLabel' for='username'>Email</label>
           </div>
 
           <div class='label-float'>
@@ -15,6 +15,8 @@
             <label id='senhaLabel' for='password'>Senha</label>
             <i class="bi bi-eye-slash" aria-hidden="true"></i>
           </div>
+          <p v-if="error" class="mt-6">Please fill all fields</p>
+    <p v-if="errorSignIn && !error" class="mt-6">{{ errorSignIn }}</p>
 
           <div class='justify-center'>
             <button type="submit">Entrar</button>
@@ -34,36 +36,33 @@
   </div>
 </template>
 
-
 <script>
 import { ref } from "vue";
 
 export default {
   name: "SignInForm",
   props: {
-    error: Boolean,
+    errorSignIn: String,
   },
   setup(props, { emit }) {
-    const username = ref("");
+    const email = ref("");
     const password = ref("");
     const error = ref(false);
 
     const onSubmit = () => {
       error.value = false;
-      if (username.value && password.value) {
+      if (email.value && password.value) {
         emit("onSubmit", {
-          username: username.value,
+          email: email.value,
           password: password.value,
         });
-        username.value = "";
-        password.value = "";
       } else {
         error.value = true;
       }
     };
     return {
       error,
-      username,
+      email,
       password,
       onSubmit,
     };
