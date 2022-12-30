@@ -1,11 +1,19 @@
 <template>
   <div>
-    Account user
+   <h1> Olá, {{ name }}</h1>
+
   </div>
 </template>
 
 <script>
+import { useStore } from "vuex";
+
 export default {
-  
-}
+  setup() {
+    const store = useStore();
+    return {
+      name: store.state.user.name,
+    };
+  },
+};
 </script>
