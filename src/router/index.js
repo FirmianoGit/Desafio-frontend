@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import store from "@/store"
+
 
 const routes = [
   {
@@ -21,7 +23,10 @@ const routes = [
   {
     path: '/account',
     name: 'UserAccount',
-    component: () => import('../views/UserAccount.vue')
+    component: () => import('../views/UserAccount.vue'),
+    beforeEnter: (to, from, next) => {
+      store.state.user.isLoggedIn ? next() : next("/");
+    },
   }
 ]
 
