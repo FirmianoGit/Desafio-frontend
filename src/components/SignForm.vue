@@ -60,6 +60,7 @@ export default {
     const error = ref(false);
 
     const onSubmit = () => {
+      console.log('entrou')
       let userData = {};
 
       switch (props.type) {
