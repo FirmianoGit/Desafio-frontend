@@ -25,13 +25,21 @@
 
           <p v-if="error">Please fill all fields</p>
           <p v-else-if="errorMsg" class="mt-6">{{ errorMsg }}</p>
-          
+
           <div class='justify-center'>
             <button type="submit">{{ btnText }}</button>
           </div>
+
+          <div class='justify-center'>
+            <hr>
+          </div>
+          <p> Não tem uma conta?
+            <router-link to="/signup" 
+            >Cadastre-se</router-link>
+          </p>
         </div>
       </div>
-    </form>
+  </form>
   </div>
 </template>
 
