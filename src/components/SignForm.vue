@@ -6,9 +6,9 @@
           <h1> Entrar </h1>
           <p v-if="error">Please fill all field</p>
 
-          <div class='label-float'>
-            <label for="username"></label>
-            <input v-if="type === 'signup'" type="text" name="username" placeholder="" v-model="username" />
+          <div v-if="type === 'signup'" class='label-float'>
+            <input type="text" name="username" placeholder="" v-model="username" required />
+            <label for="username">Usuário</label>
           </div>
 
           <div class='label-float'>
@@ -24,22 +24,23 @@
           </div>
 
           <p v-if="error">Please fill all fields</p>
-          <p v-else-if="errorMsg" class="mt-6">{{ errorMsg }}</p>
+          <p v-else-if="errorMsg">{{ errorMsg }}</p>
 
           <div class='justify-center'>
             <button type="submit">{{ btnText }}</button>
           </div>
 
-          <div class='justify-center'>
-            <hr>
+          <div v-if="type === 'signin'">
+            <div class='justify-center'>
+              <hr>
+            </div>
+            <p> Não tem uma conta?
+              <router-link to="/signup">Cadastre-se</router-link>
+            </p>
           </div>
-          <p> Não tem uma conta?
-            <router-link to="/signup" 
-            >Cadastre-se</router-link>
-          </p>
         </div>
       </div>
-  </form>
+    </form>
   </div>
 </template>
 
@@ -90,7 +91,7 @@ export default {
       password,
       email,
       onSubmit,
-      btnText: computed(() => (props.type == "signup" ? "sign up" : "Entrar")),
+      btnText: computed(() => (props.type == "signup" ? "Cadastrar" : "Entrar")),
     };
   },
 };
