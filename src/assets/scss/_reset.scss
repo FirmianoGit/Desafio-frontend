@@ -1,0 +1,17 @@
+*{
+  margin: 0;
+	padding: 0;
+  box-sizing: border-box;
+}
+html {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	overflow: hidden;
+}
+$bg:#191c21;
+body{
+  background: $bg;
+}

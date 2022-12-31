@@ -1,19 +1,19 @@
 <template>
-  <mai>
+  <main>
     <h1 >Sign Up</h1>
-    <SignUpForm @onSubmit="redirectToSignIn" :errorSignUp="errorSignUp" />
-  </mai>
+    <SignForm type="signup" :errorMsg="errorSignUp" @onSubmit="redirectToSignIn" />
+  </main>
 </template>
 
 <script>
-import SignUpForm from "@/components/SignUpForm.vue";
+import SignForm from "@/components/SignForm.vue";
 import router from "@/router";
 
 import { useStore } from "vuex";
 import { ref } from "vue";
 
 export default {
-  components: { SignUpForm },
+  components: { SignForm },
   setup() {
     const store = useStore();
     const errorSignUp = ref("");

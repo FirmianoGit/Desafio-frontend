@@ -1,23 +1,21 @@
 <template>
-  <main
-    class="w-full max-w-screen-lg m-auto mt-10 text-lg leading-relaxed text-white"
-  >
-    <h1 class="mb-4 text-2xl font-bold uppercase text-pink">
+  <main>
+    <h1>
       Sign In to get a surprise
     </h1>
-    <SignInForm @onSubmit="redirectToAccount" :errorSignIn="errorSignIn" />
+    <SignForm  type="signin"  :errorMsg="errorSignIn"  @onSubmit="redirectToAccount" />
   </main>
 </template>
 
 <script>
-import SignInForm from "@/components/SignInForm.vue";
+import SignForm from "@/components/SignForm.vue";
 import router from "@/router";
 
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 export default {
-  components: { SignInForm },
+  components: { SignForm },
   setup() {
     const store = useStore();
     const errorSignIn = ref("");
