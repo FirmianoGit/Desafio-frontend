@@ -3,7 +3,12 @@
     <form @submit.prevent="onSubmit()">
       <div class='container'>
         <div class='card'>
-          <h1> Entrar </h1>
+          <div v-if="type === 'signup'" class='label-float'>
+            <h1> Cadastrar </h1>
+          </div>
+          <div v-if="type === 'signin'" class='label-float'>
+            <h1> Entrar </h1>
+          </div>
           <p v-if="error">Please fill all field</p>
 
           <div v-if="type === 'signup'" class='label-float'>
