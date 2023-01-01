@@ -1,6 +1,6 @@
+import { createRouter, createWebHistory } from 'vue-router'
 import store from "@/store";
 import Home from "@/views/Home.vue";
-import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
@@ -26,9 +26,7 @@ const routes = [
   },
   {
     path: "/:pathMatch(.*)*",
-    beforeEnter: (to, from, next) => {
-      next("/");
-    },
+    component: () => import( '../components/NotFound.vue'),
   },
 ];
 
