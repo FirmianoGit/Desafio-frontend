@@ -21,9 +21,6 @@ $orange: #f49448;
 $violet: #4038a0;
 $body: #191c21;
 $white: #fff;
-$disable: #cccc;
-
-
 
 div {
   margin: 5rem 0;

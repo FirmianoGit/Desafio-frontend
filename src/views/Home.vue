@@ -27,7 +27,7 @@ export default {
         store.dispatch("user/authentication", foundUser);
         router.push({ name: "UserAccount" });
       } else {
-        errorSignIn.value = alert('foi');
+        errorSignIn.value = 'erro';
         setTimeout(() => window.location.reload(), 3600)
       }
     };

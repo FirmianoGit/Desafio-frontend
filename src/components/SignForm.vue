@@ -17,15 +17,17 @@
           </div>
 
           <div class='label-float'>
-            <input type='text' name="email" paceholder='' v-model="email" required>
+            <input type='text' name="email" paceholder='' v-model="email" required />
             <label for='email'>Email</label>
-            <i class="bi bi-eye-slash" aria-hidden="true"></i>
           </div>
 
           <div class='label-float'>
-            <input type='password' name="password" id='password' paceholder='' v-model="password" required>
+            <input v-bind:type="showPassword ? 'text' : 'password'" placeholder='' v-model="password" required />
             <label for='password'>Password</label>
-            <i class="bi bi-eye-slash" aria-hidden="true"></i>
+            <span @click="showPassword = !showPassword">
+              <i v-if="showPassword" class="fas fa-eye-slash"></i>
+              <i v-else class="fas fa-eye"></i>
+            </span>
           </div>
 
           <p v-if="error">Please fill all fields</p>
@@ -45,8 +47,10 @@
           </div>
         </div>
       </div>
+
     </form>
   </div>
+
 </template>
 
 <script>
@@ -58,6 +62,15 @@ export default {
     type: String,
     errorMsg: String,
   },
+  data() {
+    return {
+      password: '',
+      showPassword: false,
+    }
+  },
+
+
+
   setup(props, { emit }) {
     const username = ref("");
     const password = ref("");
@@ -108,20 +121,18 @@ export default {
 $orange: #f49448;
 $purple: #272262;
 $violet: #4038a0;
-$body: #191c21;
 $card: #ffffff80;
 $white: #fff;
-$error: #ff0000;
-$bg-error: #ffbbbb;
-$success: #00bb00;
-$bg-success: #bbffbe;
-$disable: #cccc;
-$grey: #666666;
 
 h1 {
   text-align: center;
   margin-bottom: 20px;
   color: $orange;
+}
+
+svg {
+  position: absolute;
+  color: $purple;
 }
 
 .justify-center {
@@ -210,27 +221,18 @@ button {
   border-radius: 5px;
   padding: 0.5rem 2rem;
   transition: all 0.3s ease-out;
+  background: transparent;
+  border-color: $orange;
+  color: $violet;
+  border: 2px solid $orange;
+  cursor: pointer;
 
-  &:disabled {
-    background: $disable;
-    color: $grey;
-    cursor: auto;
-
-  }
-
-  &:enabled {
-    background: transparent;
-    border-color: $orange;
-    color: $violet;
-    border: 2px solid $orange;
-    cursor: pointer;
-
-    &:hover {
-      background: $orange;
-      color: $white;
-    }
+  &:hover {
+    background: $orange;
+    color: $white;
   }
 }
+
 
 hr {
   margin: 10% 0;
@@ -255,43 +257,4 @@ a {
     filter: brightness(0.8);
   }
 }
-
-.bi-eye-slash {
-  position: absolute;
-
-  right: 10px;
-  cursor: pointer;
-  color: $purple;
-}
-
-#msgError {
-  text-align: center;
-  color: $error;
-  background: $bg-error;
-  border-radius: 4px;
-  display: none;
-  animation: fadeOut;
-  /* 1000ms ease 1000ms  */
-  animation-fill-mode: forwards;
-  animation-duration: 2s;
-  animation-delay: 1.2s;
-}
-
-#msgSuccess {
-  text-align: center;
-  color: $success;
-  background: $bg-success;
-  border-radius: 4px;
-  display: none;
-  animation: fadeOut 5s ease-in-out;
-}
-
-/* 
-@keyframes fadeOut {
-	to {
-		visibility: hidden;
-		opacity: 0;
-		animation-delay: 1.2s;
-	  }
-	} */
 </style>

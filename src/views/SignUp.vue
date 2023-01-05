@@ -1,6 +1,5 @@
 <template>
-  <main class="flex flex-col items-center w-full max-w-screen-lg m-auto mt-10 text-lg leading-relaxed text-white">
-    <h1 class="mb-4 text-2xl font-bold uppercase text-pink">Sign Up</h1>
+  <main>
     <SignForm type="signup" :errorMsg="errorSignUp" @onSubmit="redirectToSignIn" />
   </main>
 </template>
@@ -13,7 +12,9 @@ import { useStore } from "vuex";
 import { ref } from "vue";
 
 export default {
-  components: { SignForm },
+  components: { 
+    SignForm
+  },
   setup() {
     const store = useStore();
     const errorSignUp = ref("");
@@ -28,7 +29,8 @@ export default {
         store.dispatch("user/addUser", user);
         router.push({ name: "SignIn" });
       } else {
-        errorSignUp.value = "Email is already used";
+        errorSignUp.value = `O email já está sendo usado por outra conta.`;
+        setTimeout(() => window.location.reload(), 1600)
       }
     };
 

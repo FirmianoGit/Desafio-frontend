@@ -1,7 +1,6 @@
 <template>
  <router-view />
  <router-view name="notFound" />
-
 </template>
 
 <script>
