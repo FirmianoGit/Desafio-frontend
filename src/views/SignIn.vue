@@ -1,6 +1,6 @@
 <template>
   <main>
-    <SignForm  type="signin"  :errorMsg="errorSignIn"  @onSubmit="redirectToAccount" />
+    <SignForm  type="signin" :errorMsg="errorSignIn" @onSubmit="redirectToAccount"/>
   </main>
 </template>
 
@@ -27,8 +27,7 @@ export default {
         store.dispatch("user/authentication", foundUser);
         router.push({ name: "UserAccount" });
       } else {
-        errorSignIn.value = 'E-mail ou Senha incorretos!';
-        setTimeout(() => window.location.reload(), 2300)
+        errorSignIn.value = "Email does not exist or password is wrong";
       }
     };
 

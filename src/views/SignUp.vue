@@ -30,7 +30,7 @@ export default {
         router.push({ name: "SignIn" });
       } else {
         errorSignUp.value = `O email já está sendo usado por outra conta.`;
-        setTimeout(() => window.location.reload(), 1600)
+        setTimeout(() => window.location.reload(), 2700)
       }
     };
 

@@ -9,20 +9,20 @@
           <div v-if="type === 'signin'" class='label-float'>
             <h1> Entrar </h1>
           </div>
-          <p v-if="error">Please fill all field</p>
+         
 
           <div v-if="type === 'signup'" class='label-float'>
-            <input type="text" name="username" placeholder="" v-model="username" required />
+            <input type="text" name="username" placeholder="" v-model="username"  />
             <label for="username">Usuário</label>
           </div>
 
           <div class='label-float'>
-            <input type='text' name="email" paceholder='' v-model="email" required />
+            <input type='text' name="email" paceholder='' v-model="email"  />
             <label for='email'>Email</label>
           </div>
 
           <div class='label-float'>
-            <input v-bind:type="showPassword ? 'text' : 'password'" placeholder='' v-model="password" required />
+            <input v-bind:type="showPassword ? 'text' : 'password'" placeholder='' v-model="password"  />
             <label for='password'>Password</label>
             <span @click="showPassword = !showPassword">
               <i v-if="showPassword" class="fas fa-eye-slash"></i>
@@ -30,7 +30,7 @@
             </span>
           </div>
 
-          <p v-if="error">Please fill all fields</p>
+          <p v-if="error">Por favor, preencha todos os campos</p>
           <p v-else-if="errorMsg">{{ errorMsg }}</p>
 
           <div class='justify-center'>
@@ -72,6 +72,7 @@ export default {
 
 
   setup(props, { emit }) {
+
     const username = ref("");
     const password = ref("");
     const email = ref("");
@@ -111,6 +112,7 @@ export default {
       email,
       onSubmit,
       btnText: computed(() => (props.type == "signup" ? "Cadastrar" : "Entrar")),
+      
     };
   },
 };
@@ -164,17 +166,7 @@ svg {
       }
     }
 
-    &:valid {
-      border-bottom: 2px solid $orange;
 
-      + {
-        label {
-          font-size: 13px;
-          margin-top: 0;
-          color: $violet;
-        }
-      }
-    }
   }
 
   position: relative;
@@ -186,7 +178,7 @@ svg {
     color: $purple;
     pointer-events: none;
     position: absolute;
-    top: 0;
+    top: -.6rem;
     left: 0;
     margin-top: 13px;
     transition: all 0.3s ease-out;
