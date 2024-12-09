@@ -1,60 +1,67 @@
 <template>
   <div>
-    <form @submit.prevent="onSubmit()">
-      <div class='container'>
-        <div class='card'>
-          <div v-if="type === 'signup'" class='label-float'>
-            <h1> Cadastrar </h1>
+    <form @submit.prevent="onSubmit">
+      <div class="container">
+        <div class="card">
+          <div v-if="type === 'signup'" class="label-float">
+            <h1>Cadastrar</h1>
           </div>
-          <div v-if="type === 'signin'" class='label-float'>
-            <h1> Entrar </h1>
-          </div>
-         
-
-          <div v-if="type === 'signup'" class='label-float'>
-            <input type="text" name="username" placeholder="" v-model="username"  />
-            <label for="username">Usuário</label>
+          <div v-if="type === 'signin'" class="label-float">
+            <h1>Entrar</h1>
           </div>
 
-          <div class='label-float'>
-            <input type='text' name="email" paceholder='' v-model="email"  />
-            <label for='email'>Email</label>
+          <div v-if="type === 'signup'" class="label-float">
+            <input
+              type="text"
+              name="nomeUsuario"
+              v-model="nomeUsuario"
+              placeholder=""
+            />
+            <label for="nomeUsuario">Nome de Usuário</label>
           </div>
 
-          <div class='label-float'>
-            <input v-bind:type="showPassword ? 'text' : 'password'" placeholder='' v-model="password"  />
-            <label for='password'>Password</label>
+          <div class="label-float">
+            <input type="text" name="email" v-model="email" placeholder="" />
+            <label for="email">Email</label>
+          </div>
+
+          <div class="label-float">
+            <input
+              v-bind:type="showPassword ? 'text' : 'password'"
+              v-model="senha"
+              placeholder=""
+            />
+            <label for="password">Senha</label>
             <span @click="showPassword = !showPassword">
               <i v-if="showPassword" class="fas fa-eye-slash"></i>
               <i v-else class="fas fa-eye"></i>
             </span>
           </div>
 
-          <p v-if="error">Por favor, preencha todos os campos</p>
-          <p v-else-if="errorMsg">{{ errorMsg }}</p>
+          <p v-if="mensagem">{{ mensagem }}</p>
 
-          <div class='justify-center'>
+          <div class="justify-center">
             <button type="submit">{{ btnText }}</button>
           </div>
 
           <div v-if="type === 'signin'">
-            <div class='justify-center'>
-              <hr>
+            <div class="justify-center">
+              <hr />
             </div>
-            <p> Não tem uma conta?
+            <p>
+              Não tem uma conta?
               <router-link to="/signup">Cadastre-se</router-link>
             </p>
           </div>
         </div>
       </div>
-
     </form>
   </div>
-
 </template>
 
 <script>
 import { ref, computed } from "vue";
+import axios from "axios";
 
 export default {
   name: "SignForm",
@@ -64,60 +71,70 @@ export default {
   },
   data() {
     return {
-      password: '',
+      email: "",
+      senha: "",
       showPassword: false,
-    }
-  },
-
-
-
-  setup(props, { emit }) {
-
-    const username = ref("");
-    const password = ref("");
-    const email = ref("");
-    const error = ref(false);
-
-    const onSubmit = () => {
-      console.log('entrou')
-      let userData = {};
-
-      switch (props.type) {
-        case "signup":
-          error.value = !(username.value && password.value && email.value);
-          userData = {
-            username: username.value,
-            password: password.value,
-            email: email.value,
-          };
-          break;
-        case "signin":
-          error.value = !(email.value && password.value);
-          userData = {
-            email: email.value,
-            password: password.value,
-          };
-          break;
-        default:
-          throw new Error("Type form unknown");
-      }
-
-      !error.value && emit("onSubmit", userData);
+      nomeUsuario: "",
+      mensagem: "", // Adiciona um campo para exibir mensagens de feedback
     };
-
+  },
+  methods: {
+    async login() {
+      try {
+        const response = await axios.post("http://localhost:3000/auth", {
+          email: this.email,
+          senha: this.senha,
+        });
+        const token = response.data.access_token;
+        console.log(token);
+        localStorage.setItem("auth_token", token);
+        this.$router.push("/profile");
+      } catch (error) {
+        console.error("Erro ao fazer login:", error);
+        this.mensagem = "Erro ao fazer login. Verifique seus dados.";
+      }
+    },
+    async cadastrar() {
+      try {
+        const response = await axios.post("http://localhost:3000/users", {
+          email: this.email,
+          nomeUsuario: this.nomeUsuario,
+          senha: this.senha,
+        });
+        this.mensagem = "Usuário cadastrado com sucesso!";
+        console.log("Cadastro realizado:", response.data);
+      } catch (error) {
+        console.error("Erro ao cadastrar usuário:", error);
+        this.mensagem =
+          "Erro ao cadastrar usuário. Tente novamente ou verifique os dados.";
+      }
+    },
+    async onSubmit() {
+      if (this.type === "signup") {
+        // Validação de campos
+        if (!this.email || !this.nomeUsuario || !this.senha) {
+          this.mensagem = "Por favor, preencha todos os campos.";
+          return;
+        }
+        await this.cadastrar();
+      } else if (this.type === "signin") {
+        if (!this.email || !this.senha) {
+          this.mensagem = "Por favor, preencha todos os campos.";
+          return;
+        }
+        await this.login();
+      }
+    },
+  },
+  setup(props) {
     return {
-      error,
-      username,
-      password,
-      email,
-      onSubmit,
-      btnText: computed(() => (props.type == "signup" ? "Cadastrar" : "Entrar")),
-      
+      btnText: computed(() =>
+        props.type === "signup" ? "Cadastrar" : "Entrar"
+      ),
     };
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 $orange: #f49448;
@@ -165,8 +182,6 @@ svg {
         }
       }
     }
-
-
   }
 
   position: relative;
@@ -178,7 +193,7 @@ svg {
     color: $purple;
     pointer-events: none;
     position: absolute;
-    top: -.6rem;
+    top: -0.6rem;
     left: 0;
     margin-top: 13px;
     transition: all 0.3s ease-out;
@@ -206,7 +221,6 @@ svg {
 }
 
 button {
-
   font-weight: bold;
   font-size: 12pt;
   margin-top: 20px;
@@ -224,7 +238,6 @@ button {
     color: $white;
   }
 }
-
 
 hr {
   margin: 10% 0;

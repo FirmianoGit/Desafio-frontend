@@ -9,6 +9,11 @@ const routes = [
     component: Home,
   },
   {
+    path: "/tasktable",
+    name: "tasktable",
+    component: () => import ('@/views/TaskView.vue')
+  },
+  {
     path: "/",
     name: "SignIn",
     component:() =>import ('@/views/SignIn.vue'), 
